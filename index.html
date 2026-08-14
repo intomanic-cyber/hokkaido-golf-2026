@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#22493A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="니돔 골프">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>홋카이도 골프 2026.08.16–20 · 공유본</title>
+<style>
+:root{
+  --paper:#EDF0E9;
+  --card:#FFFFFF;
+  --ink:#0B120F;
+  --ink-2:#39443D;
+  --ink-3:#5C665F;
+  --pine:#22493A;
+  --birch:#CBD2C6;
+  --line:#BFC7B8;
+  /* 코스 말뚝 색을 상태 표시로 사용 */
+  --stake-white:#22493A;   /* 확정 */
+  --stake-yellow:#D9A324;  /* 확인 필요 */
+  --stake-red:#BE4132;     /* 미확정 */
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16.5px;
+  line-height:1.6;
+  padding:0 0 64px;
+}
+.wrap{max-width:520px;margin:0 auto;padding:0 16px}
+
+/* ---------- header ---------- */
+.head{
+  background:var(--pine);
+  color:#EDF1EA;
+  padding:22px 0 18px;
+  margin-bottom:18px;
+}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#9FBBAC;
+}
+.head h1{
+  font-size:28px;
+  font-weight:800;
+  letter-spacing:-.02em;
+  line-height:1.2;
+  margin:6px 0 2px;
+}
+.head .dates{font-family:var(--mono);font-size:14.5px;color:#CFE0D5;letter-spacing:.02em}
+.hrow{display:flex;align-items:center;gap:10px;margin-top:13px}
+.langsw{margin-left:auto;border:1px solid #4A7A64;border-radius:2px;overflow:hidden}
+.langsw button{
+  background:none;border:0;cursor:pointer;padding:4px 11px;
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.04em;color:#B6D0C1;
+}
+.langsw button[aria-pressed="true"]{background:#EDF1EA;color:#173A2D}
+.langsw button:focus-visible{outline:2px solid #D9A324;outline-offset:-2px}
+.dcount{
+  display:inline-block;margin-top:12px;
+  border:1px solid #4A7A64;border-radius:2px;
+  padding:3px 9px;
+  font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:#E4EEE8;
+}
+
+/* ---------- status legend ---------- */
+.legend{display:flex;gap:6px;margin-bottom:16px}
+.lg{
+  flex:1;background:var(--card);border:1px solid var(--line);
+  padding:9px 8px 8px;text-align:center;
+}
+.lg b{display:block;font-family:var(--mono);font-size:23px;line-height:1;font-weight:600}
+.lg span{font-size:12px;color:var(--ink-3);letter-spacing:.02em}
+.lg.w b{color:var(--stake-white)}
+.lg.y b{color:var(--stake-yellow)}
+.lg.r b{color:var(--stake-red)}
+
+/* ---------- calendar grid ---------- */
+.cal{
+  background:var(--card);border:1px solid var(--line);
+  margin-bottom:16px;overflow:hidden;
+}
+.cal .hdr,.cal .rw{display:grid;grid-template-columns:26px repeat(5,1fr)}
+.cal .hdr{background:var(--pine);color:#DCE7DF}
+.cal .hdr div{
+  padding:6px 3px;text-align:center;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;
+  border-left:1px solid #35604D;
+}
+.cal .hdr div:first-child{border-left:0}
+.cal .hdr b{display:block;font-size:16px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.cal .rw{border-top:1px solid var(--line)}
+.cal .rl{
+  display:flex;align-items:center;justify-content:center;
+  background:#F4F6F1;
+  font-family:var(--mono);font-size:10.5px;color:var(--ink-2);
+  writing-mode:vertical-rl;letter-spacing:.1em;padding:4px 0;
+}
+.cal .cl{
+  border-left:1px solid var(--line);
+  padding:7px 4px;min-height:58px;
+  font-size:11.5px;line-height:1.45;color:var(--ink-2);
+}
+.cal .cl b{display:block;font-family:var(--mono);font-size:12.5px;color:var(--ink);font-weight:600;letter-spacing:-.03em}
+.cal .cl.fix{background:#CCE2F3}
+.cal .cl.fix b{color:#0F3A55}
+.cal .cl.adj{background:#FAD2E1}
+.cal .cl.adj b{color:#7A1B41}
+.callg{display:flex;gap:14px;margin:-10px 0 16px;padding-left:2px}
+.callg span{display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--ink-2)}
+.callg i{width:11px;height:11px;border:1px solid var(--line);display:block}
+
+.tabs{
+  gap:3px;
+  overflow-x:auto;scrollbar-width:none;margin-bottom:14px;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:1 0 auto;min-width:19%;
+  background:#E0E4DA;border:1px solid var(--birch);border-bottom:3px solid #A9B3A0;
+  padding:9px 6px 8px;cursor:pointer;
+  font-family:var(--mono);font-size:13px;letter-spacing:.02em;color:#4A554E;
+}
+.tab b{display:block;font-size:19px;color:#2B342E;font-weight:700;letter-spacing:-.02em}
+.tab[aria-selected="true"]{
+  background:var(--pine);border-color:var(--pine);border-bottom-color:#D9A324;
+}
+.tab[aria-selected="true"] b{color:#FFFFFF}
+.tab[aria-selected="true"] span{color:#C3DACB}
+.tab:focus-visible{outline:2px solid var(--pine);outline-offset:2px}
+
+.cal .cl.wx{background:#F4F6F1;font-size:10.5px;color:var(--ink-2);min-height:44px}
+.cal .cl.wx b{font-size:11.5px;color:#2F4A5C}
+.cal .cl.wx.rain{background:#E4EDF4}
+.cal .cl.wx.rain b{color:#A8331F}
+.wx{
+  display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;
+  background:#EEF3F6;border:1px solid #C2D3DE;
+  padding:8px 11px;margin-bottom:12px;
+}
+.wx b{font-size:14px;font-weight:700;color:#1F4257}
+.wx span{font-size:13px;color:#37423B}
+.wx .pop{font-family:var(--mono);font-size:12.5px;font-weight:700;color:#2F5E7A}
+.wx.rain{background:#F7E7E3;border-color:#E0B3A8}
+.wx.rain b,.wx.rain .pop{color:#8E2B18}
+.tabs{display:none}
+.langsw{display:none}
+.js .tabs{display:flex}
+.js .langsw{display:flex}
+.js .dayhead{display:none}
+.dayhead{
+  font-family:var(--mono);font-size:15px;font-weight:700;letter-spacing:.02em;
+  color:#fff;background:var(--pine);padding:8px 12px;margin:0 0 12px;
+}
+/* ---------- day panel ---------- */
+.panel{padding-top:16px}
+.panel[hidden]{display:none}
+.daynote{
+  font-size:14px;color:var(--ink-2);
+  border-left:2px solid var(--birch);padding-left:10px;margin-bottom:14px;
+}
+
+/* ---------- item card ---------- */
+.item{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-left:4px solid var(--stake-white);
+  padding:11px 13px 12px;
+  margin-bottom:8px;
+}
+.item.y{border-left-color:var(--stake-yellow)}
+.item.r{border-left-color:var(--stake-red)}
+.item .row{display:flex;gap:11px;align-items:baseline}
+.time{
+  font-family:var(--mono);font-size:14.5px;font-weight:700;
+  color:var(--ink);flex:0 0 52px;letter-spacing:-.01em;
+}
+.time.na{color:var(--ink-3);font-weight:400}
+.ttl{font-size:16px;font-weight:700;letter-spacing:-.01em;flex:1}
+.sub{margin:5px 0 0 63px;font-size:14px;color:var(--ink-2)}
+.meta{
+  margin:7px 0 0 63px;font-family:var(--mono);font-size:12.5px;
+  color:var(--ink-2);letter-spacing:.01em;
+}
+.flag{
+  margin:9px 0 0 63px;padding:8px 10px;
+  background:#FAEFD2;border:1px solid #D9BE71;
+  font-size:13.5px;color:#5A4409;
+}
+.item.r .flag{background:#FAE2DE;border-color:#DFA79D;color:#6B2418}
+
+/* ---------- sections ---------- */
+h2{
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-2);font-weight:600;
+  margin:28px 0 9px;padding-bottom:6px;border-bottom:1px solid var(--line);
+}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line)}
+th,td{text-align:left;padding:10px 12px;font-size:14.5px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{width:37%;font-weight:700;color:var(--ink-2);font-size:14px}
+td{font-family:var(--mono);font-size:14px;letter-spacing:-.01em}
+td.t{font-family:var(--sans);font-size:14.5px}
+
+
+/* ---------- pin map ---------- */
+.pinmap{background:var(--card);border:1px solid var(--line);padding:10px 10px 4px;margin-bottom:12px}
+.mapbox{position:relative;line-height:0}
+.mapbox img{width:100%;height:auto;display:block;border:1px solid var(--line)}
+.mk{
+  position:absolute;transform:translate(-50%,-50%);
+  display:flex;flex-direction:column;align-items:center;gap:2px;white-space:nowrap;
+}
+.mk i{
+  font-style:normal;font-family:var(--mono);font-size:11.5px;font-weight:700;
+  background:#0F3A55;color:#fff;border:2px solid #fff;border-radius:11px;
+  padding:2px 7px;line-height:1.2;box-shadow:0 1px 4px rgba(0,0,0,.4);
+}
+.mk em{
+  font-style:normal;font-size:11.5px;font-weight:700;color:#0E1512;
+  background:rgba(255,255,255,.92);border:1px solid #0F3A55;
+  padding:1px 5px;border-radius:3px;line-height:1.35;
+}
+.pmlg{display:flex;gap:10px;align-items:center;margin:0;padding:8px 2px 3px;border-top:1px solid var(--line)}
+.pmlg span{font-size:12px;color:var(--ink-2)}
+.pmlg a{margin-left:auto;font-size:12.5px;font-weight:700;color:#173A2D;white-space:nowrap}
+.cl2 .no{
+  display:inline-block;width:20px;height:20px;line-height:20px;text-align:center;
+  font-family:var(--mono);font-size:11.5px;font-weight:600;border-radius:50%;
+  background:#CCE2F3;color:#0F3A55;margin-right:8px;
+}
+.cl2 .no.alt{background:#FAD2E1;color:#7A1B41}
+
+/* ---------- contacts ---------- */
+.calls{display:block;border:1px solid var(--line);background:var(--card)}
+.cl2{
+  display:grid;grid-template-columns:1fr 104px 50px;align-items:center;
+  gap:8px;padding:9px 11px;border-bottom:1px solid var(--line);
+}
+.cl2:last-child{border-bottom:0}
+.cl2 > span:first-child{font-size:14.5px;letter-spacing:-.01em}
+.cl2 a{
+  font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:-.02em;
+  color:#173A2D;text-decoration:none;text-align:right;
+}
+.cl2 a.map{
+  text-align:center;font-family:var(--sans);font-size:13px;font-weight:700;
+  border:1px solid #93A88C;padding:4px 0;color:#173A2D;
+}
+.cl2 .nomap{text-align:center;color:var(--ink-3);font-size:12px}
+.cl2 a:focus-visible{outline:2px solid var(--pine);outline-offset:1px}
+
+.links{display:flex;gap:6px;margin-top:8px}
+.links a{
+  flex:1;text-align:center;background:var(--pine);color:#EDF1EA;
+  text-decoration:none;padding:10px 8px;font-size:13.5px;font-weight:700;
+}
+.links a:focus-visible{outline:2px solid #D9A324;outline-offset:2px}
+/* ---------- checklist ---------- */
+.chk{
+  display:flex;gap:10px;align-items:flex-start;
+  background:var(--card);border:1px solid var(--line);border-left:4px solid var(--stake-yellow);
+  padding:10px 12px;margin-bottom:6px;cursor:pointer;
+}
+.chk.crit{border-left-color:var(--stake-red)}
+.chk input{margin-top:3px;width:16px;height:16px;accent-color:var(--pine);flex:0 0 auto}
+.chk .cx{flex:1}
+.chk .cx b{display:block;font-size:15px;font-weight:700;letter-spacing:-.01em}
+.chk .cx span{display:block;font-size:13.5px;color:var(--ink-2);margin-top:2px}
+.chk.done{opacity:.42}
+.chk.done .cx b{text-decoration:line-through}
+
+.foot{
+  margin-top:26px;padding-top:14px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:12px;color:var(--ink-2);letter-spacing:.03em;line-height:1.8;
+}
+@media (prefers-reduced-motion:no-preference){
+  .panel{animation:fade .18s ease-out}
+  @keyframes fade{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+}
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap">
+    <div class="eyebrow">Hokkaido · Tomakomai</div>
+    <h1>니돔 골프 원정</h1>
+    <div class="dates">2026.08.16 SUN — 08.20 THU · 4박 5일</div>
+    <div class="hrow">
+      <div class="dcount" id="dc">8월 16일 출발</div>
+      <div class="langsw" role="group" aria-label="Language">
+        <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="legend">
+    <div class="lg w"><b>17</b><span>확정</span></div>
+    <div class="lg y"><b>4</b><span>확인 필요</span></div>
+    <div class="lg r"><b>0</b><span>미확정</span></div>
+  </div>
+
+  <div class="cal">
+    <div class="hdr">
+      <div></div>
+      <div><b>16</b>일</div>
+      <div><b>17</b>월</div>
+      <div><b>18</b>화</div>
+      <div><b>19</b>수</div>
+      <div><b>20</b>목</div>
+    </div>
+    <div class="rw">
+      <div class="rl">오전</div>
+      <div class="cl fix"><b>OZ174</b>10:15 출발<br>13:00 착</div>
+      <div class="cl fix"><b>피리카</b>08:03<br>3인 셀프</div>
+      <div class="cl fix"><b>브룩스</b>08:18<br>3인 캐디</div>
+      <div class="cl fix"><b>니스파IN</b>08:03<br>3인 셀프</div>
+      <div class="cl fix"><b>카무이</b>07:00<br>2인 셀프</div>
+    </div>
+    <div class="rw">
+      <div class="rl">오후</div>
+      <div class="cl fix"><b>13:30</b>렌터카<br>15:00 체크인</div>
+      <div class="cl adj">자유</div>
+      <div class="cl adj">자유<br>온천 옵션</div>
+      <div class="cl adj"><b>제비오</b>이온<br>츠루하</div>
+      <div class="cl fix"><b>12:30</b>반납<br><b>OZ173</b>14:30</div>
+    </div>
+    <div class="rw">
+      <div class="rl">저녁</div>
+      <div class="cl adj"><b>삿포로</b>안경점<br>단독 왕복</div>
+      <div class="cl fix"><b>18:00</b>스시<br>2인·치토세</div>
+      <div class="cl adj">호텔</div>
+      <div class="cl adj">시내 식사</div>
+      <div class="cl fix"><b>17:45</b>인천 착</div>
+    </div>
+    <div class="rw">
+      <div class="rl">날씨</div>
+      <div class="cl wx"><b>흐림 뒤 갬</b>25° / 20°<br>강수 20%</div>
+      <div class="cl wx"><b>흐림</b>23° / 20°<br>강수 30%</div>
+      <div class="cl wx"><b>흐림</b>23° / 20°<br>강수 40%</div>
+      <div class="cl wx"><b>흐림</b>26° / 21°<br>강수 40%</div>
+      <div class="cl wx rain"><b>오전 비</b>25° / 22°<br>강수 90%</div>
+    </div>
+  </div>
+  <div class="callg">
+    <span><i style="background:#CCE2F3"></i>예약 확약</span>
+    <span><i style="background:#FAD2E1"></i>조율 대상</span>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-d="0"><b>16</b><span>일</span></button>
+    <button class="tab" role="tab" aria-selected="false" data-d="1"><b>17</b><span>월</span></button>
+    <button class="tab" role="tab" aria-selected="false" data-d="2"><b>18</b><span>화</span></button>
+    <button class="tab" role="tab" aria-selected="false" data-d="3"><b>19</b><span>수</span></button>
+    <button class="tab" role="tab" aria-selected="false" data-d="4"><b>20</b><span>목</span></button>
+  </div>
+
+  <!-- ================= DAY 1 ================= -->
+  <section class="panel" data-p="0">
+    <h3 class="dayhead">8월 16일 (일) · 이동</h3>
+    <p class="daynote">이동일. 도착에서 렌터카 수령까지 30분이 전부라 여유가 없는 구간.</p>
+
+<div class="wx"><b>흐림 뒤 갬</b><span>25° / 20°</span><span class="pop">강수 20~30%</span><span>남동풍 4m/s</span></div>
+
+    <div class="item">
+      <div class="row"><div class="time">08:15</div><div class="ttl">인천공항 제2터미널 도착</div></div>
+      <div class="sub">아시아나는 2026년 1월부터 T2 운항. 출발 2시간 전 기준.</div>
+    </div>
+
+    <div class="item">
+      <div class="row"><div class="time">10:15</div><div class="ttl">OZ174 인천 → 신치토세</div></div>
+      <div class="sub">비행 2시간 45분 · J클래스 · 좌석 배정 확인</div>
+      <div class="meta">예약번호는 개인 보관본 참조</div>
+    </div>
+
+    <div class="item">
+      <div class="row"><div class="time">13:00</div><div class="ttl">신치토세 도착</div></div>
+      <div class="sub">입국심사·수하물 수취 30~40분 예상.</div>
+    </div>
+
+    <div class="item y">
+      <div class="row"><div class="time">13:30</div><div class="ttl">오릭스 렌터카 수령</div></div>
+      <div class="sub">신치토세공항점 · WA클래스 왜건 · 계약자 KIM HARKYOUNG · 이상호 교대운전 가능(면허 서류 완비)</div>
+      <div class="meta">오릭스 신치토세공항점</div>
+      <div class="flag"><b>ETC 카드는 별도.</b> 차재기는 표준 장착이지만 카드가 없으면 작동하지 않음. 오릭스 대여 1렌탈 550엔, 재고 한정이라 사전 전화 필요(0123-22-0543). 미대여 시 일반 차로에서 현금·신용카드 정산.<br>도착 후 30분. 성수기 입국심사가 밀리면 지연 가능. 전날 점포에 편명(OZ174)과 도착시각을 알려두면 대기 처리됨.</div>
+    </div>
+
+    <div class="item">
+      <div class="row"><div class="time">15:00</div><div class="ttl">호텔 니돔 체크인</div></div>
+      <div class="sub">Cottage with River View · 4박 · 조식 포함 · 공항에서 약 30분</div>
+      <div class="meta">숙박세 현지 지불</div>
+    </div>
+
+    <div class="item y">
+      <div class="row"><div class="time">16:10</div><div class="ttl">삿포로 마루야마 · 나카가와 안경점</div></div>
+      <div class="sub">김학영님 단독 이동 · 나머지 3명은 호텔 체크인 후 잔류 · 편도 약 80km · 갈 때 1시간 30~40분(삿포로 퇴근 정체), 올 때 1시간 10~20분</div>
+      <div class="meta">円山裏参道 中川眼鏡店 · 예약 완료 · 치토세IC~삿포로미나미IC · 통행료 왕복 약 1,800엔</div>
+      <div class="flag"><b>예약 시각 확인 필요.</b> 렌터카 인수가 15:30이면 호텔 경유 후 삿포로 도착은 빨라야 17:40~17:50. 예약이 이보다 이르면 호텔을 건너뛰고 영업소에서 바로 출발해야 함.</div>
+    </div>
+
+    <div class="item">
+      <div class="row"><div class="time">~20:20</div><div class="ttl">호텔 복귀</div></div>
+      <div class="sub">야간 단독 운전 · 해안 안개 구간 주의 · 다음날 08:03 티오프</div>
+    </div>
+  </section>
+
+  <!-- ================= DAY 2 ================= -->
+  <section class="panel" data-p="1">
+    <h3 class="dayhead">8월 17일 (월) · 피리카</h3>
+    <p class="daynote">라운드 후 팀이 갈라지는 날. 스시 2명은 북쪽 치토세, 나머지 2명은 자유. 오후는 비워 둠.</p>
+
+<div class="wx"><b>종일 흐림</b><span>23° / 20°</span><span class="pop">강수 30%</span><span>남동풍 4m/s</span></div>
+
+    <div class="item">
+      <div class="row"><div class="time">08:03</div><div class="ttl">니돔 클래식 · 피리카</div></div>
+      <div class="sub">18홀 스루플레이 · 3명 1조 · 셀프 · 승용카트</div>
+      <div class="meta">니돔 클래식 예약</div>
+    </div>
+
+    <div class="item">
+      <div class="row"><div class="time na">13:00</div><div class="ttl">라운드 종료 · 점심</div></div>
+    </div>
+
+    <div class="item">
+      <div class="row"><div class="time">18:00</div><div class="ttl">鮨処 北の華 · 오마카세</div></div>
+      <div class="sub">치토세시 사이와이초 1-1-1 · 2명 · 호텔에서 북쪽 20분 · 점내 촬영 금지</div>
+      <div class="meta">17:30 open · 일요일 휴무</div>
+    </div>
+  </section>
+
+  <!-- ================= DAY 3 ================= -->
+  <section class="panel" data-p="2">
+    <h3 class="dayhead">8월 18일 (화) · 브룩스</h3>
+    <p class="daynote">브룩스 확약 완료. 니돔과 달리 캐디 동반이고 40분 전 접수가 요구됨.</p>
+
+<div class="wx"><b>종일 흐림</b><span>23° / 20°</span><span class="pop">강수 40%</span><span>남동풍 4m/s</span></div>
+
+    <div class="item">
+      <div class="row"><div class="time">07:20</div><div class="ttl">호텔 출발</div></div>
+      <div class="sub">브룩스는 호텔에서 5분 이내. 植苗 437 · 니돔 바로 옆.</div>
+    </div>
+
+    <div class="item y">
+      <div class="row"><div class="time">07:38</div><div class="ttl">접수 마감 (티오프 40분 전)</div></div>
+      <div class="flag">바우처에 명시된 요구사항. 골프백에 <b>영문 네임태그</b>를 미리 부착해 둘 것.</div>
+    </div>
+
+    <div class="item">
+      <div class="row"><div class="time">08:18</div><div class="ttl">홋카이도 브룩스 CC</div></div>
+      <div class="sub">3명 — 김학영 · 이상호 · 지주원 · <b>캐디 동반</b></div>
+      <div class="meta">세금 · 카트 · 캐디 · 로커 요금 포함 · North Star Travel 수배</div>
+    </div>
+
+    <div class="item">
+      <div class="row"><div class="time na">오후</div><div class="ttl">자유</div></div>
+      <div class="sub">노보리베츠 온천(차로 50분) 또는 호텔 휴식.</div>
+    </div>
+  </section>
+
+  <!-- ================= DAY 4 ================= -->
+  <section class="panel" data-p="3">
+    <h3 class="dayhead">8월 19일 (수) · 니스파 IN</h3>
+    <p class="daynote">저녁 약속이 없는 유일한 날. 쇼핑을 몰아넣기 가장 좋은 오후.</p>
+
+<div class="wx"><b>종일 흐림</b><span>26° / 21°</span><span class="pop">강수 40%</span><span>남동풍 4m/s</span></div>
+
+    <div class="item">
+      <div class="row"><div class="time">08:03</div><div class="ttl">니돔 클래식 · 니스파 IN</div></div>
+      <div class="sub">18홀 스루플레이 · 3명 1조 · 셀프 · 승용카트</div>
+      <div class="meta">백티는 HDCP 9.9 이하</div>
+    </div>
+
+    <div class="item">
+      <div class="row"><div class="time">14:30</div><div class="ttl">슈퍼스포츠 제비오 · 여성 클럽 구매</div></div>
+      <div class="sub">야나기초 4-3-25 · 10:00–21:00 · 빅토리아 골프 입점 · 호텔에서 25분</div>
+      <div class="meta">TEL 0144-53-5755 · 사양은 비용 메모 참조</div>
+    </div>
+
+    <div class="item">
+      <div class="row"><div class="time">16:00</div><div class="ttl">이온 도마코마이</div></div>
+      <div class="sub">야나기초 3-1-20 · 08:00–23:00 · 주차 무료</div>
+    </div>
+
+    <div class="item">
+      <div class="row"><div class="time">17:30</div><div class="ttl">츠루하드러그 와카쿠사점</div></div>
+      <div class="sub">와카쿠사초 1-7-1 · 09:00–23:00 · 서쪽으로 10분</div>
+    </div>
+  </section>
+
+  <!-- ================= DAY 5 ================= -->
+  <section class="panel" data-p="4">
+    <h3 class="dayhead">8월 20일 (목) · 카무이 · 귀국</h3>
+    <p class="daynote">라운드·반납·출국이 한 오전에 겹침. 슬랙이 가장 적은 날.</p>
+
+<div class="wx rain"><b>오전 비 16mm</b><span>25° / 22°</span><span class="pop">오전 90% · 오후 40%</span></div>
+
+    <div class="item y">
+      <div class="row"><div class="time">07:00</div><div class="ttl">니돔 클래식 · 카무이</div></div>
+      <div class="sub">18홀 스루플레이 · <b>2명 1조</b> · 셀프 · 종료 11:00~11:30 예상</div>
+      <div class="meta">니돔 클래식 예약</div>
+      <div class="flag"><b>오전 강수확률 90% · 16mm.</b> 07:00 티오프가 정면으로 걸림. 전날 밤 골프장(0144-55-1888)에 클로즈 여부를 확인할 것. 코스 측 클로즈 판정이면 취소 요금이 면제되지만, 개인 사정 취소는 당일 100%.<br>진행이 밀리면 그대로 반납 시각을 침범. 전반 종료 시점에 페이스 확인하고, 늦으면 오릭스에 반납 연장 전화.</div>
+    </div>
+
+    <div class="item">
+      <div class="row"><div class="time">12:00</div><div class="ttl">코스 출발 · 주유</div></div>
+      <div class="sub">만탱 반납 조건이면 공항 진입 전 주유 10~15분 추가.</div>
+    </div>
+
+    <div class="item">
+      <div class="row"><div class="time">12:30</div><div class="ttl">렌터카 반납</div></div>
+      <div class="sub">신치토세공항점 · 대출점포 반납</div>
+    </div>
+
+    <div class="item y">
+      <div class="row"><div class="time">13:00</div><div class="ttl">교렌한바이 · 국내선 터미널 2F</div></div>
+      <div class="sub">08:00–20:00 · 해산물 선물</div>
+      <div class="flag">국내선 2F. 국제선 보안검색을 통과하면 갈 수 없음. 체크인 전에 먼저 들를 것.</div>
+    </div>
+
+    <div class="item">
+      <div class="row"><div class="time">13:50</div><div class="ttl">체크인 마감</div></div>
+      <div class="sub">아시아나 국제선 출발 40분 전 마감. 골드 전용 카운터 이용 가능 (김학영).</div>
+    </div>
+
+    <div class="item">
+      <div class="row"><div class="time">14:30</div><div class="ttl">OZ173 신치토세 → 인천</div></div>
+      <div class="sub">17:45 인천 T2 도착 · C클래스 · 좌석 04C</div>
+    </div>
+  </section>
+
+  <!-- ================= 열린 항목 ================= -->
+  <h2>정리해야 할 항목</h2>
+
+  <label class="chk crit">
+    <input type="checkbox">
+    <span class="cx"><b>ETC 카드 사전 대여</b><span>현재 예약에 미포함. 0123-22-0543으로 추가 요청. 1렌탈 550엔이며 재고가 한정적. 통행료는 반납 시 정산.</span></span>
+  </label>
+
+  <label class="chk">
+    <input type="checkbox">
+    <span class="cx"><b>안경점 예약 시각 · 영업시간</b><span>円山裏参道 中川眼鏡店. 삿포로 도착 가능 시각이 17:40~17:50이라 마감 시각과 대조 필요.</span></span>
+  </label>
+
+  <label class="chk crit">
+    <input type="checkbox">
+    <span class="cx"><b>Visit Japan Web — 김학영 완료</b><span>남은 3인(이상호·지주원·NADDA) 미등록. 각자 계정으로 직접 등록해야 함. QR은 스크린샷으로 저장해 두면 공항에서 로그인 없이 제시 가능.</span></span>
+  </label>
+
+  <label class="chk">
+    <input type="checkbox">
+    <span class="cx"><b>골프백 영문 네임태그</b><span>브룩스 바우처 요구사항. 출국 전 3개 백에 부착.</span></span>
+  </label>
+
+  <div class="links">
+    <a href="https://www.vjw.digital.go.jp" target="_blank" rel="noopener">Visit Japan Web 등록</a>
+    <a href="https://aps1.travel.rakuten.co.jp/portal/my/prv_page.first" target="_blank" rel="noopener">렌터카 예약 확인</a>
+  </div>
+
+  <!-- ================= 인원 · 수하물 ================= -->
+  <h2>인원 · 수하물</h2>
+  <table>
+    <tr><th class="t">숙박</th><td class="t">4인 · 코티지 1실</td></tr>
+    <tr><th class="t">8/17 월 · 니돔</th><td class="t">3인</td></tr>
+    <tr><th class="t">8/18 화 · 브룩스</th><td class="t">3인</td></tr>
+    <tr><th class="t">8/19 수 · 니돔</th><td class="t">3인</td></tr>
+    <tr><th class="t">8/20 목 · 니돔</th><td class="t">2인</td></tr>
+    <tr><th class="t">8/17 저녁 스시</th><td class="t">2인</td></tr>
+    <tr><th class="t">가는 편 수하물</th><td class="t"><b>일반 5개 · 142kg</b> + 골프백 3개</td></tr>
+    <tr><th class="t">오는 편 수하물</th><td class="t"><b>일반 6개 · 183kg</b> + 골프백 4개</td></tr>
+  </table>
+  <p class="daynote" style="margin:10px 0 0">골프백은 1인 1개까지 개수에 포함되지 않습니다. 개당 <b>23kg</b>만 넘기지 않으면 됩니다.</p>
+
+  <!-- ================= 연락처 ================= -->
+  <h2>연락처 · 지도</h2>
+  <div class="pinmap">
+    <div class="mapbox">
+      <img src="data:image/jpeg;base64,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" alt="삿포로에서 도마코마이에 이르는 방문지 일대 지도">
+      <b class="mk" style="left:54.3%;top:54.0%"><i>5</i><em>치토세</em></b>
+      <b class="mk" style="left:60.8%;top:62.0%"><i>4·9</i><em>신치토세공항</em></b>
+      <b class="mk" style="left:56.3%;top:71.6%"><i>1·2·3</i><em>니돔 · 브룩스</em></b>
+      <b class="mk" style="left:51.6%;top:83.1%"><i>6·7·8·10·11</i><em>도마코마이</em></b>
+    </div>
+    <div class="pmlg">
+      <span>핀 번호는 아래 목록과 대응 · 지도 데이터 &copy; Google</span>
+      <a href="https://www.google.com/maps/@42.7315,141.6485,10z" target="_blank" rel="noopener">구글맵 열기</a>
+    </div>
+  </div>
+  <div class="calls">
+    <div class="cl2"><span><i class="no">1</i>호텔 니돔</span><a href="tel:+81144558000">0144-55-8000</a><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Hotel%20Nidom&amp;query_place_id=ChIJXaI9U9gYdV8RaMJYX7CN1No" target="_blank" rel="noopener">지도</a></div>
+    <div class="cl2"><span><i class="no">2</i>니돔 클래식 코스</span><a href="tel:+81144551888">0144-55-1888</a><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Nidom%20Classic%20Course&amp;query_place_id=ChIJXaI9U9gYdV8RbG7fwOhur-g" target="_blank" rel="noopener">지도</a></div>
+    <div class="cl2"><span><i class="no">3</i>홋카이도 브룩스 CC</span><a href="tel:+818060882916">080-6088-2916</a><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Hokkaido%20Brooks%20Country%20Club&amp;query_place_id=ChIJuwYDQSsfdV8RWsGs-nlq-oc" target="_blank" rel="noopener">지도</a></div>
+    <div class="cl2"><span>North Star Travel</span><a href="tel:+81123242121">0123-24-2121</a><span class="nomap">—</span></div>
+    <div class="cl2"><span><i class="no">4</i>오릭스 신치토세공항점</span><a href="tel:+81123220543">0123-22-0543</a><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Orix%20Rental%20Chitose%20Airport&amp;query_place_id=ChIJ45hlUWogdV8R125DYaOMhkU" target="_blank" rel="noopener">지도</a></div>
+    <div class="cl2"><span><i class="no">5</i>鮨処 北の華</span><a href="tel:+81123235126">0123-23-5126</a><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=%E9%AE%A8%E5%87%A6%20%E5%8C%97%E3%81%AE%E8%8F%AF&amp;query_place_id=ChIJ_fDxY6UgdV8RdAXBYAofDZg" target="_blank" rel="noopener">지도</a></div>
+    <div class="cl2"><span><i class="no">6</i>제비오 도마코마이</span><a href="tel:+81144535755">0144-53-5755</a><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Super%20Sports%20Xebio%20Tomakomai&amp;query_place_id=ChIJi3dyOQUadV8RA6Qz8fjIl48" target="_blank" rel="noopener">지도</a></div>
+    <div class="cl2"><span><i class="no alt">10</i>골프파트너 도마코마이</span><a href="tel:+81144525858">0144-52-5858</a><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Golf%20Partner%20Tomakomai&amp;query_place_id=ChIJB3n95xkadV8Rh4iMXsxIVeA" target="_blank" rel="noopener">지도</a></div>
+    <div class="cl2"><span><i class="no alt">11</i>골프5 도마코마이</span><a href="tel:+81144343105">0144-34-3105</a><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Golf%205%20Tomakomaiten&amp;query_place_id=ChIJpxytZMkQdV8R1u_GFv3pXDg" target="_blank" rel="noopener">지도</a></div>
+    <div class="cl2"><span><i class="no">7</i>이온 도마코마이</span><span class="nomap">—</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=%E3%82%A4%E3%82%AA%E3%83%B3%E8%8B%AB%E5%B0%8F%E7%89%A7%E5%BA%97&amp;query_place_id=ChIJ1RMMhBoadV8RkyX9P0Z-iwA" target="_blank" rel="noopener">지도</a></div>
+    <div class="cl2"><span><i class="no">8</i>츠루하 와카쿠사점</span><span class="nomap">—</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Tsuruha%20Drug%20Tomakomai%20Wakakusa&amp;query_place_id=ChIJe_OsCQARdV8R16EiCwYvdwY" target="_blank" rel="noopener">지도</a></div>
+    <div class="cl2"><span><i class="no">9</i>교렌한바이 신치토세</span><span class="nomap">—</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Gyorenhanbai%20New%20Chitose&amp;query_place_id=ChIJcQQek0EgdV8R3j5-tjKu1Ik" target="_blank" rel="noopener">지도</a></div>
+    <div class="cl2"><span>아시아나 일본</span><a href="tel:+81570082555">0570-082-555</a><span class="nomap">—</span></div>
+  </div>
+
+  <p class="foot">
+    캘린더 색 — 하늘색은 예약 확약, 분홍색은 조율 대상입니다.<br>
+    공유본입니다. 예약번호는 제외했습니다. 예보는 일본기상협회 tenki.jp 8월 14일 21시 발표 기준이며, 출발 전 재확인이 필요합니다. 습도가 연일 90% 안팎이고 현재 도마코마이에 짙은 안개 주의보가 있습니다.
+  </p>
+</main>
+
+<script>
+(function(){
+  document.documentElement.className+=' js';
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  var panels=[].slice.call(document.querySelectorAll('.panel'));
+  function pick(i){
+    tabs.forEach(function(t,n){t.setAttribute('aria-selected',n===i?'true':'false');});
+    panels.forEach(function(p,n){p.hidden=(n!==i);});
+  }
+  pick(0);
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){pick(i);});
+    t.addEventListener('keydown',function(e){
+      if(e.key==='ArrowRight'){var n=(i+1)%tabs.length;pick(n);tabs[n].focus();}
+      if(e.key==='ArrowLeft'){var p=(i-1+tabs.length)%tabs.length;pick(p);tabs[p].focus();}
+    });
+  });
+
+  // 오늘 날짜 기준으로 해당 일자 탭 자동 선택
+  var days=['2026-08-16','2026-08-17','2026-08-18','2026-08-19','2026-08-20'];
+  var today=new Date();
+  var iso=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+  var idx=days.indexOf(iso);
+  if(idx>-1)pick(idx);
+
+  // 출발까지 남은 일수
+  var dep=new Date(2026,7,16);
+  var diff=Math.ceil((dep-new Date(today.getFullYear(),today.getMonth(),today.getDate()))/86400000);
+  var el=document.getElementById('dc');
+  if(diff>0)el.textContent='출발까지 D-'+diff;
+  else if(diff===0)el.textContent='오늘 출발';
+  else if(diff>=-4)el.textContent='여행 '+(1-diff)+'일차';
+  else el.textContent='일정 종료';
+
+
+  // ---------- 언어 전환 ----------
+  var DICT = {"니돔 골프 원정": "Nidom Golf Trip", "2026.08.16 SUN — 08.20 THU · 4박 5일": "2026.08.16 SUN — 08.20 THU · 4 nights", "확정": "Confirmed", "확인 필요": "Needs check", "미확정": "Open", "일": "Sun", "월": "Mon", "화": "Tue", "수": "Wed", "목": "Thu", "오전": "AM", "오후": "PM", "저녁": "EVE", "10:15 출발": "10:15 dep", "13:00 착": "13:00 arr", "피리카": "Pirika", "3인 셀프": "3 self", "브룩스": "Brooks", "3인 캐디": "3 caddie", "니스파IN": "Nispa IN", "카무이": "Kamui", "2인 셀프": "2 self", "렌터카": "Car pickup", "15:00 체크인": "15:00 check-in", "자유": "Free", "온천 옵션": "Onsen option", "제비오": "Xebio", "이온": "AEON", "츠루하": "Tsuruha", "반납": "Car return", "호텔": "Hotel", "스시": "Sushi", "2인·치토세": "2 pax · Chitose", "시내 식사": "Dinner in town", "인천 착": "ICN arr", "예약 확약": "Confirmed booking", "조율 대상": "To be arranged", "이동일. 도착에서 렌터카 수령까지 30분이 전부라 여유가 없는 구간.": "Transfer day. Only 30 minutes between landing and car pickup — no slack.", "인천공항 제2터미널 도착": "Arrive Incheon Terminal 2", "아시아나는 2026년 1월부터 T2 운항. 출발 2시간 전 기준.": "Asiana has operated from T2 since January 2026. Based on arriving 2 hours before departure.", "OZ174 인천 → 신치토세": "OZ174 Incheon → New Chitose", "비행 2시간 45분 · J클래스 · 좌석 배정 확인": "2h45m · J class · confirm seat assignment", "신치토세 도착": "Arrive New Chitose", "입국심사·수하물 수취 30~40분 예상.": "Allow 30–40 min for immigration and baggage claim.", "오릭스 렌터카 수령": "Orix car pickup", "신치토세공항점 · WA클래스 왜건 · 계약자 KIM HARKYOUNG · 이상호 교대운전 가능(면허 서류 완비)": "New Chitose Airport branch · WA-class wagon · contract holder KIM HARKYOUNG · Lee Sangho may share driving (documents in order)", "도착 후 30분. 성수기 입국심사가 밀리면 지연 가능. 전날 점포에 편명(OZ174)과 도착시각을 알려두면 대기 처리됨.": "Only 30 min after landing. Peak-season immigration can run long. Notify the branch the day before with flight OZ174 and arrival time so they hold the car.", "호텔 니돔 체크인": "Hotel Nidom check-in", "Cottage with River View · 4박 · 조식 포함 · 공항에서 약 30분": "Cottage with River View · 4 nights · breakfast included · about 30 min from airport", "라운드 후 팀이 갈라지는 날. 스시 2명은 북쪽 치토세, 나머지 2명은 자유. 오후는 비워 둠.": "The group splits after the round. Two head north to Chitose for sushi; the other two are free. Afternoon left open.", "니돔 클래식 · 피리카": "Nidom Classic · Pirika", "18홀 스루플레이 · 3명 1조 · 셀프 · 승용카트": "18 holes through play · group of 3 · self · riding cart", "라운드 종료 · 점심": "Round ends · lunch", "鮨処 北の華 · 오마카세": "Sushi Kitanohana · omakase", "치토세시 사이와이초 1-1-1 · 2명 · 호텔에서 북쪽 20분 · 점내 촬영 금지": "Chitose, Saiwaicho 1-1-1 · 2 pax · 20 min north of the hotel · no photography inside", "17:30 open · 일요일 휴무": "Opens 17:30 · closed Sundays", "브룩스 확약 완료. 니돔과 달리 캐디 동반이고 40분 전 접수가 요구됨.": "Brooks is confirmed. Unlike Nidom it includes a caddie and requires check-in 40 min early.", "호텔 출발": "Depart hotel", "브룩스는 호텔에서 5분 이내. 植苗 437 · 니돔 바로 옆.": "Brooks is within 5 min of the hotel. Uenae 437, right next to Nidom.", "접수 마감 (티오프 40분 전)": "Check-in deadline (40 min before tee-off)", "바우처에 명시된 요구사항. 골프백에": "Stated on the voucher. Attach an", "영문 네임태그": "English name tag", "를 미리 부착해 둘 것.": "to each golf bag in advance.", "홋카이도 브룩스 CC": "Hokkaido Brooks CC", "3명 — 김학영 · 이상호 · 지주원 ·": "3 pax — Kim Harkyoung · Lee Sangho · Ji Joowon ·", "캐디 동반": "caddie included", "세금 · 카트 · 캐디 · 로커 요금 포함 · North Star Travel 수배": "Tax, cart, caddie and locker fees included · arranged by North Star Travel", "노보리베츠 온천(차로 50분) 또는 호텔 휴식.": "Noboribetsu onsen (50 min drive) or rest at the hotel.", "저녁 약속이 없는 유일한 날. 쇼핑을 몰아넣기 가장 좋은 오후.": "The only evening with nothing booked — the best afternoon to consolidate shopping.", "니돔 클래식 · 니스파 IN": "Nidom Classic · Nispa IN", "슈퍼스포츠 제비오 · 여성 클럽 구매": "Super Sports Xebio · women's clubs", "야나기초 4-3-25 · 10:00–21:00 · 빅토리아 골프 입점 · 호텔에서 25분": "Yanagicho 4-3-25 · 10:00–21:00 · Victoria Golf inside · 25 min from hotel", "TEL 0144-53-5755 · 사양은 비용 메모 참조": "TEL 0144-53-5755 · specs in the cost memo", "이온 도마코마이": "AEON Tomakomai", "야나기초 3-1-20 · 08:00–23:00 · 주차 무료": "Yanagicho 3-1-20 · 08:00–23:00 · free parking", "츠루하드러그 와카쿠사점": "Tsuruha Drug Wakakusa", "와카쿠사초 1-7-1 · 09:00–23:00 · 서쪽으로 10분": "Wakakusacho 1-7-1 · 09:00–23:00 · 10 min west", "라운드·반납·출국이 한 오전에 겹침. 슬랙이 가장 적은 날.": "Round, car return and departure all fall in one morning. The tightest day.", "니돔 클래식 · 카무이": "Nidom Classic · Kamui", "18홀 스루플레이 ·": "18 holes through play ·", "2명 1조": "group of 2", "· 셀프 · 종료 11:00~11:30 예상": "· self · finish expected 11:00–11:30", "진행이 밀리면 그대로 반납 시각을 침범. 전반 종료 시점에 페이스 확인하고, 늦으면 오릭스에 반납 연장 전화.": "Slow play eats straight into the return slot. Check the pace at the turn and call Orix to extend if running late.", "코스 출발 · 주유": "Leave course · refuel", "만탱 반납 조건이면 공항 진입 전 주유 10~15분 추가.": "If a full tank is required, add 10–15 min before reaching the airport.", "렌터카 반납": "Car return", "신치토세공항점 · 대출점포 반납": "New Chitose Airport branch · return to pickup branch", "교렌한바이 · 국내선 터미널 2F": "Gyorenhanbai · Domestic Terminal 2F", "08:00–20:00 · 해산물 선물": "08:00–20:00 · seafood gifts", "국내선 2F. 국제선 보안검색을 통과하면 갈 수 없음. 체크인 전에 먼저 들를 것.": "Domestic 2F. Unreachable once through international security — go before check-in.", "체크인 마감": "Check-in closes", "아시아나 국제선 출발 40분 전 마감. 골드 전용 카운터 이용 가능 (김학영).": "Asiana international check-in closes 40 min before departure. Gold counter available (Kim Harkyoung).", "OZ173 신치토세 → 인천": "OZ173 New Chitose → Incheon", "17:45 인천 T2 도착 · C클래스 · 좌석 04C": "17:45 arrival at Incheon T2 · C class · seat 04C", "정리해야 할 항목": "Open items", "됨. IDP + 한국 면허증 + 여권 3종 확인 필요. 미비 시 김학영을 추가 운전자로 등록해야 함.": ". IDP + Korean licence + passport are all required. If missing, Kim must be added as an additional driver at the counter.", "골프백 영문 네임태그": "English name tags on golf bags", "브룩스 바우처 요구사항. 출국 전 3개 백에 부착.": "Required by the Brooks voucher. Attach to all three bags before departure.", "인원 · 수하물": "Party · baggage", "숙박": "Lodging", "4인 · 코티지 1실": "4 pax · 1 cottage", "8/17 월 · 니돔": "Mon 8/17 · Nidom", "3인": "3 pax", "8/18 화 · 브룩스": "Tue 8/18 · Brooks", "8/19 수 · 니돔": "Wed 8/19 · Nidom", "8/20 목 · 니돔": "Thu 8/20 · Nidom", "2인": "2 pax", "8/17 저녁 스시": "Sushi, eve of 8/17", "가는 편 수하물": "Outbound baggage", "일반 5개 · 142kg": "5 pieces · 142kg", "+ 골프백 3개": "+ 3 golf bags", "오는 편 수하물": "Inbound baggage", "일반 6개 · 183kg": "6 pieces · 183kg", "+ 골프백 4개": "+ 4 golf bags", "골프백은 1인 1개까지 개수에 포함되지 않습니다. 개당": "One golf bag per person does not count toward the piece limit. Just keep each under", "만 넘기지 않으면 됩니다.": ".", "연락처 · 지도": "Contacts · map", "치토세": "Chitose", "신치토세공항": "New Chitose Airport", "니돔 · 브룩스": "Nidom · Brooks", "도마코마이": "Tomakomai", "핀 번호는 아래 목록과 대응 · 지도 데이터 © Google": "Pin numbers match the list below · Map data © Google", "구글맵 열기": "Open in Google Maps", "호텔 니돔": "Hotel Nidom", "지도": "Map", "니돔 클래식 코스": "Nidom Classic Course", "오릭스 신치토세공항점": "Orix New Chitose Airport branch", "鮨処 北の華": "Sushi Kitanohana", "제비오 도마코마이": "Xebio Tomakomai", "골프파트너 도마코마이": "Golf Partner Tomakomai", "골프5 도마코마이": "Golf 5 Tomakomai", "츠루하 와카쿠사점": "Tsuruha Wakakusa", "교렌한바이 신치토세": "Gyorenhanbai New Chitose", "아시아나 일본": "Asiana Japan", "예보는 일본기상협회 tenki.jp 8월 14일 21시 발표 기준이며, 출발 전 재확인이 필요합니다. 습도가 연일 90% 안팎이고 현재 도마코마이에 짙은 안개 주의보가 있습니다.": "Forecast issued by JWA / tenki.jp at 21:00 on 14 August — recheck before departure. Humidity runs near 90% all week and a dense fog advisory is currently in effect for Tomakomai.", "캘린더 색 — 하늘색은 예약 확약, 분홍색은 조율 대상입니다.": "Calendar colours: blue means a confirmed booking, pink means still to be arranged.", "날씨": "Weather", "흐림 뒤 갬": "Cloudy, clearing", "흐림": "Cloudy", "오전 비": "AM rain", "25° / 20°": "25° / 20°", "23° / 20°": "23° / 20°", "26° / 21°": "26° / 21°", "25° / 22°": "25° / 22°", "강수 20%": "Rain 20%", "강수 30%": "Rain 30%", "강수 40%": "Rain 40%", "강수 90%": "Rain 90%", "종일 흐림": "Cloudy all day", "오전 비 16mm": "AM rain, 16mm", "강수 20~30%": "Rain 20–30%", "오전 90% · 오후 40%": "AM 90% · PM 40%", "남동풍 4m/s": "SE 4m/s", "오전 강수확률 90% · 16mm.": "90% chance of rain, 16mm, in the morning.", " 07:00 티오프가 정면으로 걸림. 전날 밤 골프장(0144-55-1888)에 클로즈 여부를 확인할 것. 코스 측 클로즈 판정이면 취소 요금이 면제되지만, 개인 사정 취소는 당일 100%.": " The 07:00 tee-off sits right in it. Call the course (0144-55-1888) the night before to check for closure. If the course declares a close, the cancellation fee is waived; cancelling for personal reasons on the day costs 100%.", "삿포로 마루야마 · 나카가와 안경점": "Sapporo Maruyama · Nakagawa Optical", "김학영님 단독 이동 · 나머지 3명은 호텔 체크인 후 잔류 · 편도 약 80km · 갈 때 1시간 30~40분(삿포로 퇴근 정체), 올 때 1시간 10~20분": "Kim Harkyoung travels alone; the other three stay at the hotel · about 80 km each way · 1h30–1h40 outbound in Sapporo rush hour, 1h10–1h20 back", "円山裏参道 中川眼鏡店 · 예약 완료 · 치토세IC~삿포로미나미IC · 통행료 왕복 약 1,800엔": "Maruyamaurasando Nakagawa Optical · booked · Chitose IC to Sapporo-minami IC · about ¥1,800 in tolls round trip", "예약 시각 확인 필요.": "Booking time still to be confirmed.", " 렌터카 인수가 15:30이면 호텔 경유 후 삿포로 도착은 빨라야 17:40~17:50. 예약이 이보다 이르면 호텔을 건너뛰고 영업소에서 바로 출발해야 함.": " If the car is collected at 15:30, arrival in Sapporo via the hotel is 17:40–17:50 at the earliest. If the booking is earlier, skip the hotel and drive straight from the rental branch.", "호텔 복귀": "Back at the hotel", "야간 단독 운전 · 해안 안개 구간 주의 · 다음날 08:03 티오프": "Driving alone at night · watch for coastal fog · 08:03 tee-off the next morning", "안경점 예약 시각 · 영업시간": "Optical shop booking time and hours", "円山裏参道 中川眼鏡店. 삿포로 도착 가능 시각이 17:40~17:50이라 마감 시각과 대조 필요.": "Maruyamaurasando Nakagawa Optical. Earliest arrival in Sapporo is 17:40–17:50 — check against closing time.", "삿포로": "Sapporo", "안경점": "Optical shop", "단독 왕복": "solo round trip", "ETC 카드는 별도.": "The ETC card is separate.", " 차재기는 표준 장착이지만 카드가 없으면 작동하지 않음. 오릭스 대여 1렌탈 550엔, 재고 한정이라 사전 전화 필요(0123-22-0543). 미대여 시 일반 차로에서 현금·신용카드 정산.": " The onboard unit is standard, but it does nothing without a card. Orix rents one for ¥550 per rental; stock is limited, so call ahead (0123-22-0543). Without it, pay cash or card in the general lane.", "ETC 카드 사전 대여": "Reserve an ETC card", "현재 예약에 미포함. 0123-22-0543으로 추가 요청. 1렌탈 550엔이며 재고가 한정적. 통행료는 반납 시 정산.": "Not included in the current booking. Call 0123-22-0543 to add it. ¥550 per rental, limited stock. Tolls settled on return.", "Visit Japan Web 등록": "Visit Japan Web", "렌터카 예약 확인": "Rental booking", "Visit Japan Web — 김학영 완료": "Visit Japan Web — Kim done", "남은 3인(이상호·지주원·NADDA) 미등록. 각자 계정으로 직접 등록해야 함. QR은 스크린샷으로 저장해 두면 공항에서 로그인 없이 제시 가능.": "The other three (Lee, Ji, NADDA) are not registered. Each needs their own account. Save the QR as a screenshot so it can be shown at the airport without logging in.", "8월 16일 (일) · 이동": "Sun 16 Aug · Transfer", "8월 17일 (월) · 피리카": "Mon 17 Aug · Pirika", "8월 18일 (화) · 브룩스": "Tue 18 Aug · Brooks", "8월 19일 (수) · 니스파 IN": "Wed 19 Aug · Nispa IN", "8월 20일 (목) · 카무이 · 귀국": "Thu 20 Aug · Kamui · Return", "8월 16일 출발": "Departs 16 August", "숙박세 현지 지불": "City tax paid on site", "예약번호는 개인 보관본 참조": "Booking numbers are in the private copy", "니돔 클래식 예약": "Nidom Classic booking", "백티는 HDCP 9.9 이하": "Back tees require HDCP 9.9 or lower"};
+  var nodes=[], root=document.body;
+  (function walk(n){
+    for(var c=n.firstChild;c;c=c.nextSibling){
+      if(c.nodeType===3){ if(c.nodeValue.trim()) nodes.push([c,c.nodeValue]); }
+      else if(c.nodeType===1 && !/^(SCRIPT|STYLE|SVG)$/.test(c.tagName)) walk(c);
+    }
+  })(root);
+  var LANG='ko';
+  function dcountText(){
+    if(diff>0) return LANG==='ko' ? '출발까지 D-'+diff : 'D-'+diff+' to departure';
+    if(diff===0) return LANG==='ko' ? '오늘 출발' : 'Departure today';
+    if(diff>=-4) return LANG==='ko' ? '여행 '+(1-diff)+'일차' : 'Day '+(1-diff)+' of trip';
+    return LANG==='ko' ? '일정 종료' : 'Trip complete';
+  }
+  function setLang(l){
+    LANG=l;
+    document.documentElement.lang = (l==='en'?'en':'ko');
+    nodes.forEach(function(p){
+      var node=p[0], orig=p[1], key=orig.trim();
+      if(l==='en'){ if(DICT[key]) node.nodeValue = orig.replace(key, DICT[key]); }
+      else node.nodeValue = orig;
+    });
+    document.title = (l==='en') ? 'Hokkaido Golf 2026.08.16-20' : '홋카이도 골프 2026.08.16–20';
+    document.getElementById('dc').textContent = dcountText();
+    [].forEach.call(document.querySelectorAll('.langsw button'),function(b){
+      b.setAttribute('aria-pressed', b.dataset.lang===l ? 'true':'false');
+    });
+  }
+  [].forEach.call(document.querySelectorAll('.langsw button'),function(b){
+    b.addEventListener('click',function(){setLang(b.dataset.lang);});
+  });
+
+  // 체크리스트 (세션 내 상태만 유지)
+  [].slice.call(document.querySelectorAll('.chk input')).forEach(function(cb){
+    cb.addEventListener('change',function(){
+      cb.closest('.chk').classList.toggle('done',cb.checked);
+    });
+  });
+})();
+</script>
+</body>
+</html>
